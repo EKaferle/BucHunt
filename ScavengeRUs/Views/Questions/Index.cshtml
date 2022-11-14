@@ -48,13 +48,35 @@
 
 <h1>Hunt</h1>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 @foreach(var item in Model)
 {
     <br />
     <h4>
+        
         @Html.DisplayFor(modelItem => item.Place)
+
+        <input type="checkbox" id="checkBox"> <!-- This is adding a checkbox for each task. -->
+        <script> //This script will check if a box is checked. on refresh it will load value.
+            $('#checkBox').click(function (e) {
+                if (e.target.checked) {
+                    localStorage.setItem('checked', 'true');    //if the target is checked set the local storage to true
+                } else {
+                    localStorage.setItem('checked', 'false');
+                }
+            })
+
+            $(document).ready(function () { // When the document is loaded, assign value to check box.
+                console.log(localStorage.getItem('checked'))
+                document.querySelector('#checkBox').checked = (localStorage.getItem('checked') === 'true')
+
+            });
+        </script>
+        
     </h4>
     <p>
         @Html.DisplayFor(modelItem => item.Task)
     </p>
 }
+
